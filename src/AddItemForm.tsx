@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 
 type AddItemFormPropsType = {
@@ -19,17 +21,26 @@ const AddItemForm = (props: AddItemFormPropsType) => {
         trimTitle !== '' ? props.addItem(trimTitle) : setError(true)
         setTitle('')
     }
-    const errorMessage = error ? <div style={{color: 'red'}}>Title is required!</div> : null
+
     return (
         <div>
-            <input
+            <TextField
                 value={title}
+                variant='outlined'
                 onChange={onChangeItemHandler}
                 onKeyDown={onKeyHandler}
-                className={error ? 'error' : ''}
+                id='outlined-basic'
+                label={error ? 'Title is required' : 'type out here...'}
+                size='small'
+                error = {error}
             />
-            <button onClick={addItem}>+</button>
-            {errorMessage}
+            <Button
+                style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
+                variant='contained'
+                color='primary'
+                onClick={addItem}>
+                +
+            </Button>
         </div>
     );
 };
