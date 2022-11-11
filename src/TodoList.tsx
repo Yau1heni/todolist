@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {filterValuesType} from "./App";
+import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import IconButton from '@mui/material/IconButton'
@@ -11,10 +11,10 @@ import Checkbox from "@mui/material/Checkbox";
 type TodoListPropsType = {
     todolistId: string
     title: string
-    filter: filterValuesType
+    filter: FilterValuesType
     tasks: Array<TaskType>
     removeTask: (todolistId: string, taskId: string) => void
-    changeFilter: (todolistId: string, filter: filterValuesType) => void
+    changeFilter: (todolistId: string, filter: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     removeTodolist: (todolistId: string) => void
@@ -59,7 +59,7 @@ const TodoList = (props: TodoListPropsType) => {
         props.addTask(props.todolistId, title)
     }
 
-    const handlerCreator = (filter: filterValuesType) => () => props.changeFilter(props.todolistId, filter)
+    const handlerCreator = (filter: FilterValuesType) => () => props.changeFilter(props.todolistId, filter)
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistId)
     }

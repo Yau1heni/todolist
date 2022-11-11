@@ -6,11 +6,14 @@ import AddItemForm from './AddItemForm';
 import ButtonAppBar from './ButtonAppBar';
 import {Container, Grid, Paper} from '@mui/material';
 
-export type filterValuesType = 'All' | 'Active' | 'Completed'
+export type FilterValuesType = 'All' | 'Active' | 'Completed'
 export type TodolistType = {
     id: string
     title: string
-    filter: filterValuesType
+    filter: FilterValuesType
+}
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
 }
 
 function App() {
@@ -43,7 +46,7 @@ function App() {
     const removeTask = (todolistId: string, taskId: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== taskId)})
     }
-    const changeFilter = (todolistId: string, filter: filterValuesType) => {
+    const changeFilter = (todolistId: string, filter: FilterValuesType) => {
         setTodolists(todolists.map(el => el.id === todolistId ? {...el, filter} : el))
     }
     const changeTodolistTitle = (todolistId: string, title: string) => {
