@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from "./App";
-import AddItemForm from "./AddItemForm";
-import EditableSpan from "./EditableSpan";
+import {FilterValuesType} from './App';
+import AddItemForm from './AddItemForm';
+import EditableSpan from './EditableSpan';
 import IconButton from '@mui/material/IconButton'
-import Delete from "@mui/icons-material/Delete";
-import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
+import Delete from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 
 
 type TodoListPropsType = {
@@ -16,7 +16,7 @@ type TodoListPropsType = {
     removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, filter: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    changeTaskStatus: (todolistId: string, isDone: boolean, taskId: string) => void
     removeTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
@@ -28,11 +28,11 @@ export type TaskType = {
     isDone: boolean
 }
 
-const TodoList = (props: TodoListPropsType) => {
+const Todolist = (props: TodoListPropsType) => {
     const getTasksListItem = (t: TaskType) => {
         const removeTasks = () => props.removeTask(props.todolistId, t.id)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-            props.changeTaskStatus(props.todolistId, t.id, e.currentTarget.checked)
+            props.changeTaskStatus(props.todolistId, e.currentTarget.checked, t.id)
         }
         const changeTaskTitle = (title: string) => {
             props.changeTaskTitle(props.todolistId, t.id, title)
@@ -41,7 +41,7 @@ const TodoList = (props: TodoListPropsType) => {
             <li key={t.id} className={t.isDone ? 'isDone' : 'notIsDone'}>
                 <Checkbox
                     onChange={changeTaskStatus}
-                    color='primary'
+                    color="primary"
                     checked={t.isDone}
                 />
                 <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
@@ -81,21 +81,21 @@ const TodoList = (props: TodoListPropsType) => {
             </ul>
             <div>
                 <Button
-                    onClick={handlerCreator('All')}
-                    variant={props.filter === 'All' ? 'contained' : 'outlined'}
-                    color='secondary'
+                    onClick={handlerCreator('all')}
+                    variant={props.filter === 'all' ? 'contained' : 'outlined'}
+                    color="secondary"
                 > +
                 </Button>
                 <Button
-                    onClick={handlerCreator('Active')}
-                    variant={props.filter === 'Active' ? 'contained' : 'outlined'}
-                    color='success'
+                    onClick={handlerCreator('active')}
+                    variant={props.filter === 'active' ? 'contained' : 'outlined'}
+                    color="success"
                 > +
                 </Button>
                 <Button
-                    onClick={handlerCreator('Completed')}
-                    variant={props.filter === 'Completed' ? 'contained' : 'outlined'}
-                    color='error'
+                    onClick={handlerCreator('completed')}
+                    variant={props.filter === 'completed' ? 'contained' : 'outlined'}
+                    color="error"
                 > +
                 </Button>
             </div>
@@ -103,4 +103,4 @@ const TodoList = (props: TodoListPropsType) => {
     );
 };
 
-export default TodoList;
+export default Todolist;

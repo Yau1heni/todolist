@@ -5,7 +5,6 @@ import TextField from "@mui/material/TextField";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
-
 }
 const AddItemForm = (props: AddItemFormPropsType) => {
     const [title, setTitle] = useState<string>('')
