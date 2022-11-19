@@ -24,6 +24,7 @@ const AddItemForm = (props: AddItemFormPropsType) => {
     return (
         <div>
             <TextField
+                style={{paddingBottom: '20px'}}
                 value={title}
                 variant='outlined'
                 onChange={onChangeItemHandler}
