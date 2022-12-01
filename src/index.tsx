@@ -1,18 +1,17 @@
 import React from 'react';
 import './index.css';
-//import App from './App';
-import { createRoot } from 'react-dom/client';
+import {createRoot} from 'react-dom/client';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import AppWithRedux from './AppWithRedux';
 import {store} from './state/store';
 
-const container  = document.getElementById('root') as HTMLElement
+const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 root.render(
-    <Provider store={store}>
-        <AppWithRedux/>
-    </Provider>
+        <Provider store={store}>
+            <AppWithRedux/>
+        </Provider>
 );
 
 
