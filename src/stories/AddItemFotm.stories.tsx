@@ -9,10 +9,9 @@ export default {
     title: 'TODOLIST/AddItemForm',
     component: AddItemForm,
     argTypes: {
-        addItem:
-                {
-                    description: 'button clicked inside form'
-                },
+        addItem: {
+            description: 'button clicked inside form'
+        },
     },
 } as ComponentMeta<typeof AddItemForm>;
 
