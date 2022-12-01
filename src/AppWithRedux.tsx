@@ -29,29 +29,29 @@ function AppWithRedux() {
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskAC(todolistId, taskId));
-    }, [dispatch])
+    }, [dispatch]);
     const addTask = useCallback((title: string, todolistId: string) => {
         dispatch(addTaskAC(title, todolistId));
-    }, [dispatch])
+    }, [dispatch]);
     const changeTaskStatus = useCallback((todolistId: string, isDone: boolean, taskId: string) => {
         dispatch(changeTaskStatusAC(todolistId, isDone, taskId));
-    }, [dispatch])
+    }, [dispatch]);
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
         dispatch(changeTaskTitleAC(taskId, title, todolistId));
-    }, [dispatch])
+    }, [dispatch]);
 
     const changeFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, filter));
-    }, [dispatch])
+    }, [dispatch]);
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId));
-    }, [dispatch])
+    }, [dispatch]);
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleAC(todolistId, title));
-    }, [dispatch])
+    }, [dispatch]);
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title));
-    }, [dispatch])
+    }, [dispatch]);
 
 
     return (

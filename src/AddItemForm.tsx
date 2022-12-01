@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addItem}) => {
     const [title, setTitle] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
@@ -14,11 +14,11 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         error && setError(false);
         setTitle(e.currentTarget.value);
     };
-    const onKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addItem();
+    const onKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addItemCallback();
 
-    const addItem = () => {
+    const addItemCallback = () => {
         const trimTitle = title.trim();
-        trimTitle !== '' ? props.addItem(trimTitle) : setError(true);
+        trimTitle !== '' ? addItem(trimTitle) : setError(true);
         setTitle('');
     };
 
@@ -39,7 +39,7 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                         style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
                         variant="contained"
                         color="primary"
-                        onClick={addItem}>
+                        onClick={addItemCallback}>
                     +
                 </Button>
             </div>

@@ -5,29 +5,29 @@ type EditableSpanPropsType = {
     changeTitle: (newTitle: string) => void
 }
 
-const EditableSpan = (props: EditableSpanPropsType) => {
-    const [isEditMode, setIsEditMode] = useState<boolean>(false)
-    const [title, setTitle] = useState(props.title)
+const EditableSpan: React.FC<EditableSpanPropsType> = ({title, changeTitle}) => {
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const [newTitle, setTitle] = useState(title);
 
     const onEditMode = () => {
-        setIsEditMode(true)
-    }
+        setIsEditMode(true);
+    };
     const offEditMode = () => {
-        setIsEditMode(false)
-        props.changeTitle(title)
-    }
+        setIsEditMode(false);
+        changeTitle(newTitle);
+    };
     const onChangeEditHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
+        setTitle(e.currentTarget.value);
+    };
     return (
-        isEditMode
-            ? <input
-                value={title}
-                autoFocus
-                onBlur={offEditMode}
-                onChange={onChangeEditHandler}
-            />
-            : <span onDoubleClick={onEditMode}>{props.title}</span>
+            isEditMode
+                    ? <input
+                            value={newTitle}
+                            autoFocus
+                            onBlur={offEditMode}
+                            onChange={onChangeEditHandler}
+                    />
+                    : <span onDoubleClick={onEditMode}>{title}</span>
     );
 };
 
