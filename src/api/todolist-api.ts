@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     addedDate: string
     order: number
@@ -32,9 +32,9 @@ export const todolistAPI = {
         ('todo-lists', {title: title});
     },
     deleteTodolist(todolistId: string) {
-        return instance.delete<ResponseType<{}>>(`todo-lists/${todolistId}`);
+        return instance.delete<ResponseType>(`todo-lists/${todolistId}`);
     },
     updateTodolist(todolistId: string, title: string) {
-        return instance.put<ResponseType<{}>>(`todo-lists/${todolistId}`, {title: title});
+        return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title: title});
     }
 };
