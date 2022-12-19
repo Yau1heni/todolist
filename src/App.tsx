@@ -3,13 +3,13 @@ import './App.css';
 import AddItemForm from './AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
 import {
-    addTodolistAC,
+    addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    deleteTodolistTC,
     FilterValuesType,
     getTodolistsTC,
-    removeTodolistAC,
-    TodolistDomainType
+    TodolistDomainType,
+    updateTodolistTC
 } from './state/todolists-reducer';
 import ButtonAppBar from './ButtonAppBar';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './state/tasks-reducer';
@@ -48,13 +48,13 @@ const App = () => {
         dispatch(changeTodolistFilterAC(todolistId, filter));
     }, [dispatch]);
     const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId));
-    }, [dispatch]);
-    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title));
+        dispatch(deleteTodolistTC(todolistId));
     }, [dispatch]);
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistAC(title));
+        dispatch(addTodolistTC(title));
+    }, [dispatch]);
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
+        dispatch(updateTodolistTC(todolistId, title));
     }, [dispatch]);
 
 

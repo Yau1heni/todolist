@@ -43,7 +43,7 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
 
     useEffect(() => {
         dispatch(getTasksTC(todolistId));
-    }, []);
+    }, [dispatch]);
 
     const addTaskCallback = useCallback((title: string) => {
         addTask(todolistId, title);
