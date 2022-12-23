@@ -1,7 +1,10 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import AddItemForm from './AddItemForm';
-import {Container, Grid, Paper} from '@mui/material';
+import AddItemForm from './Components/AddItemForm/AddItemForm';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
 import {
     addTodolistTC,
     changeTodolistFilterAC,
@@ -16,6 +19,8 @@ import {addTaskTC, removeTaskTC, updateTaskTC} from './state/tasks-reducer';
 import Todolist from './Todolist';
 import {TaskStatuses, TaskType} from './api/task-api';
 import {useAppDispatch, useAppSelector} from './customHooks/hooks';
+import {RequestStatusType} from './state/app-reducer';
+import {ErrorSnackbar} from './Components/ErrorSnackbar/ErrorSnackbar';
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -24,6 +29,7 @@ export type TasksStateType = {
 const App = () => {
     const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists);
     const tasks = useAppSelector<TasksStateType>(state => state.tasks);
+    const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
     const dispatch = useAppDispatch();
 
@@ -61,6 +67,8 @@ const App = () => {
     return (
         <div className="App">
             <ButtonAppBar/>
+            <ErrorSnackbar/>
+            {status==="loading" && <LinearProgress color="secondary"/>}
             <Container fixed>
                 <Grid container style={{paddingTop: '20px'}}>
                     <AddItemForm addItem={addTodolist}/>
@@ -76,6 +84,7 @@ const App = () => {
                                         title={tl.title}
                                         filter={tl.filter}
                                         tasks={tasks[tl.id]}
+                                        entityStatus={tl.entityStatus}
                                         removeTask={removeTask}
                                         changeTaskStatus={changeTaskStatus}
                                         changeFilter={changeFilter}

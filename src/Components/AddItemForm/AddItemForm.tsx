@@ -5,8 +5,9 @@ import TextField from '@mui/material/TextField';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
-const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addItem}) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addItem, disabled}) => {
     const [title, setTitle] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
@@ -34,12 +35,15 @@ const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(({addItem}) => {
                         label={error ? 'Title is required' : 'type out here...'}
                         size="small"
                         error={error}
+                        disabled = {disabled}
                 />
                 <Button
                         style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
                         variant="contained"
                         color="primary"
-                        onClick={addItemCallback}>
+                        onClick={addItemCallback}
+                        disabled = {disabled}
+                >
                     +
                 </Button>
             </div>

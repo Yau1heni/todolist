@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
-import AddItemForm from './AddItemForm';
-import EditableSpan from './EditableSpan';
+import AddItemForm from './Components/AddItemForm/AddItemForm';
+import EditableSpan from './Components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import Delete from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
@@ -9,6 +9,7 @@ import {TaskStatuses, TaskType} from './api/task-api';
 import {FilterValuesType} from './state/todolists-reducer';
 import {useAppDispatch} from './customHooks/hooks';
 import {getTasksTC} from './state/tasks-reducer';
+import {RequestStatusType} from './state/app-reducer';
 
 
 type TodoListPropsType = {
@@ -16,6 +17,7 @@ type TodoListPropsType = {
     title: string
     filter: FilterValuesType
     tasks: Array<TaskType>
+    entityStatus: RequestStatusType
     removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, filter: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void
@@ -29,6 +31,7 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
                                                               todolistId,
                                                               title,
                                                               filter,
+                                                              entityStatus,
                                                               tasks,
                                                               removeTask,
                                                               changeFilter,
@@ -82,11 +85,11 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
         <div>
             <h3>
                 <EditableSpan title={title} changeTitle={changeTodolistTitleCallback}/>
-                <IconButton onClick={removeTodolistHandler}>
+                <IconButton onClick={removeTodolistHandler} disabled={entityStatus === 'loading'}>
                     <Delete/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTaskCallback}/>
+            <AddItemForm addItem={addTaskCallback} disabled = {entityStatus==='loading'}/>
             <div>
                 {tasksList}
             </div>

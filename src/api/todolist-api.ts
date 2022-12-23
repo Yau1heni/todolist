@@ -14,6 +14,10 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
+export enum resultStatus {
+    OK = 0,
+    Error = 1
+}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
