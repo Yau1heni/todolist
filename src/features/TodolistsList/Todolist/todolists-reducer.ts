@@ -1,8 +1,8 @@
 import {v1} from 'uuid';
-import {resultStatus, todolistAPI, TodolistType} from '../api/todolist-api';
-import {AppThunk} from './store';
-import {RequestStatusType, setAppStatusAC} from './app-reducer';
-import {handleServerAppError, handleServerNetworkError} from '../utils/error-utils';
+import {resultStatus, todolistAPI, TodolistType} from '../../../api/todolist-api';
+import {AppThunk} from '../../../app/store';
+import {RequestStatusType, setAppStatusAC} from '../../../app/app-reducer';
+import {handleServerAppError, handleServerNetworkError} from '../../../utils/error-utils';
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
@@ -84,7 +84,7 @@ export const getTodolistsTC = (): AppThunk => (dispatch) => {
         .then(res => {
             dispatch(setTodolistAC(res.data));
             dispatch(setAppStatusAC('succeeded'));
-        });
+        })
 };
 export const deleteTodolistTC = (todolistId: string): AppThunk => {
     return (dispatch) => {

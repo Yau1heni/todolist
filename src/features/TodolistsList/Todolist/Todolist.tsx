@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect} from 'react';
-import AddItemForm from './Components/AddItemForm/AddItemForm';
-import EditableSpan from './Components/EditableSpan/EditableSpan';
+import AddItemForm from '../../../components/AddItemForm/AddItemForm';
+import EditableSpan from '../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import Delete from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import Task from './Task';
-import {TaskStatuses, TaskType} from './api/task-api';
-import {FilterValuesType} from './state/todolists-reducer';
-import {useAppDispatch} from './customHooks/hooks';
-import {getTasksTC} from './state/tasks-reducer';
-import {RequestStatusType} from './state/app-reducer';
+import Task from './Task/Task';
+import {TaskStatuses, TaskType} from '../../../api/task-api';
+import {FilterValuesType} from './todolists-reducer';
+import {useAppDispatch} from '../../../customHooks/hooks';
+import {getTasksTC} from './Task/tasks-reducer';
+import {RequestStatusType} from '../../../app/app-reducer';
 
 
 type TodoListPropsType = {
@@ -46,7 +46,7 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
 
     useEffect(() => {
         dispatch(getTasksTC(todolistId));
-    }, [dispatch]);
+    }, []);
 
     const addTaskCallback = useCallback((title: string) => {
         addTask(todolistId, title);

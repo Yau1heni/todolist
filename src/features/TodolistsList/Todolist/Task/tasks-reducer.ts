@@ -1,10 +1,10 @@
-import {TasksStateType} from '../App';
-import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../api/task-api';
-import {AppRootStateType, AppThunk} from './store';
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistType} from './todolists-reducer';
-import {setAppStatusAC} from './app-reducer';
-import {resultStatus} from '../api/todolist-api';
-import {handleServerAppError, handleServerNetworkError} from '../utils/error-utils';
+import {TasksStateType} from '../../../../app/App';
+import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from '../../../../api/task-api';
+import {AppRootStateType, AppThunk} from '../../../../app/store';
+import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistType} from '../todolists-reducer';
+import {setAppStatusAC} from '../../../../app/app-reducer';
+import {resultStatus} from '../../../../api/todolist-api';
+import {handleServerAppError, handleServerNetworkError} from '../../../../utils/error-utils';
 
 type UpdateDomainTaskModelType = {
     title?: string
