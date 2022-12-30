@@ -14,16 +14,21 @@ import AddItemForm from '../../components/AddItemForm/AddItemForm';
 import Paper from '@mui/material/Paper';
 import Todolist from './Todolist/Todolist';
 import {TasksStateType} from '../../app/App';
+import {Navigate} from 'react-router-dom';
 
 const TodolistLists = () => {
     const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists);
     const tasks = useAppSelector<TasksStateType>(state => state.tasks);
+    const isLoggedIn = useAppSelector(s => s.login.isLoggedIn);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        if (!isLoggedIn) {
+            return;
+        }
         dispatch(getTodolistsTC());
-    }, [dispatch]);
+    }, []);
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskTC(todolistId, taskId));
@@ -50,6 +55,10 @@ const TodolistLists = () => {
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(updateTodolistTC(todolistId, title));
     }, [dispatch]);
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>;
+    }
 
     return (
         <>
@@ -85,4 +94,4 @@ const TodolistLists = () => {
     );
 };
 
-export default TodolistLists
+export default TodolistLists;

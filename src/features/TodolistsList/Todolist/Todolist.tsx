@@ -7,9 +7,10 @@ import Button from '@mui/material/Button';
 import Task from './Task/Task';
 import {TaskStatuses, TaskType} from '../../../api/task-api';
 import {FilterValuesType} from './todolists-reducer';
-import {useAppDispatch} from '../../../customHooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../customHooks/hooks';
 import {getTasksTC} from './Task/tasks-reducer';
 import {RequestStatusType} from '../../../app/app-reducer';
+import {Navigate} from 'react-router-dom';
 
 
 type TodoListPropsType = {
@@ -41,7 +42,6 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
                                                               changeTaskTitle,
                                                               changeTodolistTitle
                                                           }) => {
-
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -89,7 +89,7 @@ const Todolist: React.FC<TodoListPropsType> = React.memo(({
                     <Delete/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTaskCallback} disabled = {entityStatus==='loading'}/>
+            <AddItemForm addItem={addTaskCallback} disabled={entityStatus === 'loading'}/>
             <div>
                 {tasksList}
             </div>
