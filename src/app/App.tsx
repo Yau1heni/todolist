@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import "./App.css";
-import Container from "@mui/material/Container";
-import LinearProgress from "@mui/material/LinearProgress";
-import ButtonAppBar from "../ButtonAppBar";
-import { TaskType } from "../api/task-api";
-import { useAppDispatch, useAppSelector } from "../customHooks/hooks";
-import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
-import { Navigate, Route, Routes } from "react-router-dom";
-import TodolistLists from "../features/TodolistsList/TodolistLists";
-import { Login } from "../features/Login/Login";
-import { meTC } from "../features/Login/auth-reduser";
-import { CircularProgress } from "@mui/material";
+import React, {useEffect} from 'react';
+import './App.css';
+import Container from '@mui/material/Container';
+import LinearProgress from '@mui/material/LinearProgress';
+import ButtonAppBar from '../ButtonAppBar';
+import {TaskType} from '../api/task-api';
+import {useAppDispatch, useAppSelector} from '../customHooks/hooks';
+import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import TodolistLists from '../features/TodolistsList/TodolistLists';
+import {Login} from '../features/Login/Login';
+import {CircularProgress} from '@mui/material';
+import {initializeAppTC} from './app-reducer';
 
 export type TasksStateType = {
   [key: string]: Array<TaskType>;
@@ -22,7 +22,7 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(meTC());
+    dispatch(initializeAppTC());
   }, []);
 
   if (!isInitialized) {

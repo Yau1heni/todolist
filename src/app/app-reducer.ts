@@ -1,40 +1,46 @@
-export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
+import {Dispatch} from 'redux';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {setIsLoggedInAC} from '../features/Login/auth-reduser';
+import {authApi} from '../api/auth-api';
 
-const initialState = {
-  status: "idle" as RequestStatusType,
-  error: null as null | string,
-  isInitialized: false,
+const initialState: InitialStateType = {
+  status: 'idle',
+  error: null,
+  isInitialized: false
 };
 
-type InitialStateType = typeof initialState;
-
-export const appReducer = (state: InitialStateType = initialState, action: AppReducerType): InitialStateType => {
-  switch (action.type) {
-    case "APP/SET-STATUS": {
-      return { ...state, status: action.status };
+const slice = createSlice({
+  name: 'app',
+  initialState,
+  reducers: {
+    setAppInitializedAC(state, action: PayloadAction<{ value: boolean }>) {
+      state.isInitialized = action.payload.value;
+    },
+    setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
+      state.error = action.payload.error;
+    },
+    setAppStatusAC(state, action: PayloadAction<{ status: RequestStatusType }>) {
+      state.status = action.payload.status;
     }
-    case "APP/ERROR-STATUS": {
-      return { ...state, error: action.error };
-    }
-    case "APP/IS-INITIALIZED": {
-      return { ...state, isInitialized: action.isInitialized };
-    }
-    default:
-      return state;
   }
-};
-export type AppReducerType = SetAppStatus | SetErrorStatus | SetAppIsInitialized;
+});
 
-type SetAppStatus = ReturnType<typeof setAppStatusAC>;
-type SetErrorStatus = ReturnType<typeof setAppErrorAC>;
-type SetAppIsInitialized = ReturnType<typeof setAppIsInitializedAC>;
+export const appReducer = slice.reducer;
+export const {setAppInitializedAC, setAppErrorAC, setAppStatusAC} = slice.actions;
 
-export const setAppStatusAC = (status: RequestStatusType) => {
-  return { type: "APP/SET-STATUS", status } as const;
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type InitialStateType = {
+  status: RequestStatusType
+  error: string | null
+  isInitialized: boolean
+}
+
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+  authApi.me().then(res => {
+    if (res.data.resultCode === 0) {
+      dispatch(setIsLoggedInAC({value: true}));
+    }
+    dispatch(setAppInitializedAC({value: true}));
+  });
 };
-export const setAppErrorAC = (error: null | string) => {
-  return { type: "APP/ERROR-STATUS", error } as const;
-};
-export const setAppIsInitializedAC = (isInitialized: boolean) => {
-  return { type: "APP/IS-INITIALIZED", isInitialized } as const;
-};
+
