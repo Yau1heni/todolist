@@ -1,53 +1,54 @@
-import { setAppIsInitializedAC, setAppStatusAC } from "../../app/app-reducer";
-import { authApi, AuthUserType } from "../../api/auth-api";
-import { AppThunk } from "../../app/store";
-import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
-import { resultStatus } from "../../api/todolist-api";
+import {setAppInitializedAC, setAppStatusAC} from '../../app/app-reducer';
+import {authApi, AuthUserType} from '../../api/auth-api';
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
+import {resultStatus} from '../../api/todolist-api';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Dispatch} from 'redux';
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: false
 };
-type InitialStateType = typeof initialState;
 
-export const authReducer = (state: InitialStateType = initialState, action: LoginActionsType): InitialStateType => {
-  switch (action.type) {
-    case "login/SET-IS-LOGGED-IN":
-      return { ...state, isLoggedIn: action.value };
-    default:
-      return state;
+const slice = createSlice({
+  name: 'auth',
+  initialState: initialState,
+  reducers: {
+    setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {
+      state.isLoggedIn = action.payload.value;
+    }
   }
-};
-// actions
-export const setIsLoggedInAC = (value: boolean) => ({ type: "login/SET-IS-LOGGED-IN", value } as const);
+});
 
-// thunks
+export const authReducer = slice.reducer;
+export const {setIsLoggedInAC} = slice.actions;
+
 export const loginTC =
-  (data: AuthUserType): AppThunk =>
-  (dispatch) => {
-    dispatch(setAppStatusAC("loading"));
-    authApi
-      .login(data)
-      .then((res) => {
-        if (res.data.resultCode === resultStatus.OK) {
-          dispatch(setIsLoggedInAC(true));
-          dispatch(setAppStatusAC("succeeded"));
-        } else {
-          handleServerAppError(res.data, dispatch);
-        }
-      })
-      .catch((e) => {
-        handleServerNetworkError(e, dispatch);
-      });
-  };
+  (data: AuthUserType) =>
+    (dispatch: Dispatch) => {
+      dispatch(setAppStatusAC({status: 'loading'}));
+      authApi
+        .login(data)
+        .then((res) => {
+          if (res.data.resultCode === resultStatus.OK) {
+            dispatch(setIsLoggedInAC({value: true}));
+            dispatch(setAppStatusAC({status: 'succeeded'}));
+          } else {
+            handleServerAppError(res.data, dispatch);
+          }
+        })
+        .catch((e) => {
+          handleServerNetworkError(e, dispatch);
+        });
+    };
 
-export const meTC = (): AppThunk => (dispatch) => {
-  dispatch(setAppStatusAC("loading"));
+export const meTC = () => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC({status: 'loading'}));
   authApi
     .me()
     .then((res) => {
       if (res.data.resultCode === resultStatus.OK) {
-        dispatch(setIsLoggedInAC(true));
-        dispatch(setAppStatusAC("succeeded"));
+        dispatch(setIsLoggedInAC({value: true}));
+        dispatch(setAppStatusAC({status: 'succeeded'}));
       } else {
         handleServerAppError(res.data, dispatch);
       }
@@ -55,17 +56,17 @@ export const meTC = (): AppThunk => (dispatch) => {
     .catch((e) => {
       handleServerNetworkError(e, dispatch);
     })
-    .finally(() => dispatch(setAppIsInitializedAC(true)));
+    .finally(() => dispatch(setAppInitializedAC({value: true})));
 };
 
-export const logoutTC = (): AppThunk => (dispatch) => {
-  dispatch(setAppStatusAC("loading"));
+export const logoutTC = () => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC({status: 'loading'}));
   authApi
     .logout()
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(setIsLoggedInAC(false));
-        dispatch(setAppStatusAC("succeeded"));
+        dispatch(setIsLoggedInAC({value: false}));
+        dispatch(setAppStatusAC({status: 'succeeded'}));
       } else {
         handleServerAppError(res.data, dispatch);
       }
@@ -75,5 +76,4 @@ export const logoutTC = (): AppThunk => (dispatch) => {
     });
 };
 
-// types
 export type LoginActionsType = ReturnType<typeof setIsLoggedInAC>;

@@ -59,7 +59,7 @@ const TodolistLists = () => {
 
   const changeFilter = useCallback(
     (todolistId: string, filter: FilterValuesType) => {
-      dispatch(changeTodolistFilterAC(todolistId, filter));
+      dispatch(changeTodolistFilterAC({id: todolistId, filter}));
     },
     [dispatch]
   );
