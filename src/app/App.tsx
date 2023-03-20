@@ -10,7 +10,7 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import TodolistLists from '../features/TodolistsList/TodolistLists';
 import {Login} from '../features/Login/Login';
 import {CircularProgress} from '@mui/material';
-import {initializeAppTC} from './app-reducer';
+import {initializeAppTC} from './app-slice';
 
 export type TasksStateType = {
   [key: string]: Array<TaskType>;

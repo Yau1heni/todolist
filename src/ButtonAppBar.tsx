@@ -7,7 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useAppDispatch, useAppSelector } from "./customHooks/hooks";
-import { logoutTC } from "./features/Login/auth-reduser";
+import { logoutTC } from "./features/Login/auth-slice";
 
 const ButtonAppBar = () => {
   const isLoggedIn = useAppSelector((s) => s.login.isLoggedIn);
