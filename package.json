@@ -1,6 +1,7 @@
 {
   "name": "it-incubator-todolist-ts",
   "version": "0.1.0",
+  "homepage": "https://Yau1heni.github.io/todolist",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -39,7 +40,9 @@
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook -s public",
     "jest:integration": "jest -c integration/jest.config.js",
-    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
+    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -77,6 +80,7 @@
     "@storybook/react": "^6.5.13",
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "gh-pages": "^6.0.0",
     "jest-image-snapshot": "^6.0.0",
     "jest-puppeteer": "^6.1.1",
     "prettier": "2.8.2",
