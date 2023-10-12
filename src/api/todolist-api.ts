@@ -1,4 +1,4 @@
-import axios from "axios";
+import {instance} from './config';
 
 export type TodolistType = {
   id: string;
@@ -18,14 +18,6 @@ export enum resultStatus {
   OK = 0,
   Error = 1,
 }
-
-const instance = axios.create({
-  baseURL: "https://social-network.samuraijs.com/api/1.1/",
-  withCredentials: true,
-  headers: {
-    "API-KEY": "5e83c86a-1713-4894-b55e-b49e5d20fde8",
-  },
-});
 
 export const todolistAPI = {
   getTodolist() {

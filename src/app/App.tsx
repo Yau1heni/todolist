@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
-import ButtonAppBar from '../ButtonAppBar';
+import ButtonAppBar from '../components/ButtonAppBar/ButtonAppBar';
 import {TaskType} from '../api/task-api';
 import {useAppDispatch, useAppSelector} from '../customHooks/hooks';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
